@@ -1,30 +1,40 @@
 const Discord = require("discord.js");
 const auth    = require("../auth.json");
+const lib     = require("./lib.js");
+const gary    = require("./gary.js");
 
-const gary    = new Discord.Client();
+const bot     = new Discord.Client();
 
-gary.on("ready", () => {
+bot.on("ready", () => {
   console.log("All systems nominal.");
 });
 
-gary.on("message", message => {
-  if (message.content == "test") {
-    message.channel.send("It's me, Gary!")
-  }
+bot.on("message", message => {
 
-  if (message.content == "What's the time?") {
-    const today = new Date();
-    const h = today.getHours();
-    const m = today.getMinutes();
-    const s = today.getSeconds();
-    const time = h + ":" + m;
-    message.channel.send("It's " + time + " and " + s + " seconds.")
-  }
+  const ch = message.channel;
+  if (lib.hasPrefix(message)) {
+    switch (lib.getCommand(message)) {
 
-  if (message.content == "Thanks Gary.") {
-    message.channel.send("You're welcome, " + message.member + ".")
+      case "test.":
+        ch.send("Success.");
+        break;
+
+      case "what's the time?":
+        ch.send(gary.time());
+        break;
+
+      case "thanks.":
+        ch.send(gary.youWelcome());
+        break;
+
+      case "tell me a joke.":
+        gary.yoMamma()
+          .then(joke => ch.send(joke))
+          .catch( error => console.log(error));
+        break;
+    }
   }
 
 });
 
-gary.login(auth.token)
+bot.login(auth.token)
