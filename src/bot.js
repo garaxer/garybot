@@ -66,7 +66,7 @@ bot.on("message", message => {
           const query = command.split(" ").slice(2).join(" ");
           lib.log(user, "needing a simpsons reference for " + "\"" + query + "\"")
           gary.frinkiac(query)
-            .then(image => ch.send(image))
+            .then(response => ch.send(response))
             .catch(error => console.log(error))
         }
 
