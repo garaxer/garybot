@@ -38,6 +38,7 @@ bot.on("message", message => {
         ch.send({
           file: "https://i.imgur.com/cqJ3cge.gif"
         });
+        break;
 
       case "tell me a joke.":
         lib.log(user, "asking for a tasteless joke.")
@@ -51,6 +52,7 @@ bot.on("message", message => {
         gary.doggo()
           .then(pupLink => ch.send(pupLink))
           .catch(error => console.log(error));
+        break;
 
       default:
 
