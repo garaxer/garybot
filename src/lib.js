@@ -16,6 +16,10 @@ exports.getQuery = cmd => {
   return cmd.split(" ").slice(3).join(" ");
 }
 
+exports.getSimpsons = cmd => {
+  return cmd.split(" ").slice(2).join(" ");
+}
+
 exports.log = (user, task) => {
   console.log("User " + user + " is " + task);
 }

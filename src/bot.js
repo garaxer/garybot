@@ -34,7 +34,7 @@ bot.on("message", message => {
         break;
 
       case "load up celery man.":
-        lib.log(user, "wanting a nude Tayne.")
+        lib.log(user, "asking for a nude Tayne.")
         ch.send({
           file: "https://i.imgur.com/cqJ3cge.gif"
         });
@@ -48,7 +48,7 @@ bot.on("message", message => {
         break;
 
       case "show me a pup.":
-        lib.log(user, "needing to see a doggo.")
+        lib.log(user, "asking for a doggo.")
         gary.doggo()
           .then(pupLink => ch.send(pupLink))
           .catch(error => console.log(error));
@@ -65,10 +65,10 @@ bot.on("message", message => {
         }
 
         if (lib.advCheck("simpsons me", command)) {
-          const query = command.split(" ").slice(2).join(" ");
-          lib.log(user, "needing a simpsons reference for " + "\"" + query + "\"")
+          const query = lib.getSimpsons(command);
+          lib.log(user, "searching for a Simpsons reference - " + "\"" + query + "\"")
           gary.frinkiac(query)
-            .then(response => ch.send(response))
+            .then(image => ch.send(image))
             .catch(error => console.log(error))
         }
 
