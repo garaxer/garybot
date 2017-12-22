@@ -1,5 +1,6 @@
 const http = require("axios");
 const auth = require("../auth.json")
+const lib  = require("./lib.js")
 
 exports.time = () => {
   const today = new Date();
@@ -26,28 +27,14 @@ exports.doggo = () => {
     .catch(console.error)
 }
 
-exports.search = (query) => {
-  if (query != "") {
-    return http.get(
-      "https://www.googleapis.com/customsearch/v1" +
-      "?key=" + auth.google +
-      "&cx=" + auth.searchID +
-      "&searchType=image" +
-      "&q=" + query)
-      .then(response => response.data.items[0].link)
-      .catch(console.error)
-  } else {
-    return Promise.resolve("Show me some what you fuck.")
-  }
+exports.google = (query) => {
+  return (query != "")
+    ? lib.search("google", query)
+    : Promise.resolve("Show me some what you fuck.")
 }
 
 exports.frinkiac = (query) => {
-  if (query != "") {
-    return http.get("https://frinkiac.com/api/search?q=" + query)
-    .then(response => response.data[0])
-    .then(data => "https://frinkiac.com/meme/" + data.Episode + "/" + data.Timestamp)
-    .catch(console.error)
-  } else {
-    return Promise.resolve("Simpsons me what you fuck.")
-  }
+  return (query != "")
+    ? lib.search("frinkiac", query)
+    : Promise.resolve("Simpsons me what you fuck.")
 }

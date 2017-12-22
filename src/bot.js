@@ -59,7 +59,7 @@ bot.on("message", message => {
         if (lib.advCheck("show me some", command)) {
           const query = lib.getQuery(command);
           lib.log(user, "searching for some " + "\"" + query + "\"")
-          gary.search(query)
+          gary.google(query)
             .then(image => ch.send(image))
             .catch(error => console.log(error));
         }
