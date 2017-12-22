@@ -20,7 +20,7 @@ bot.on("message", message => {
 
       case "test.":
         lib.log(user, "testing GaryBot.")
-        ch.send("Success.");
+        ch.send(gary.test());
         break;
 
       case "what's the time?":
@@ -58,7 +58,7 @@ bot.on("message", message => {
 
         if (lib.advCheck("show me some", command)) {
           const query = lib.getQuery(command);
-          lib.log(user, "searching for some " + "\"" + query + "\"")
+          lib.log(user, "searching for some " + "\"" + query + "\"");
           gary.google(query)
             .then(image => ch.send(image))
             .catch(error => console.error(error));
@@ -66,9 +66,17 @@ bot.on("message", message => {
 
         if (lib.advCheck("simpsons me", command)) {
           const query = lib.getSimpsons(command);
-          lib.log(user, "searching for a Simpsons reference - " + "\"" + query + "\"")
+          lib.log(user, "searching for a Simpsons reference - " + "\"" + query + "\"");
           gary.frinkiac(query)
             .then(image => ch.send(image))
+            .catch(error => console.error(error))
+        }
+
+        if (lib.advCheck("tl;dr", command)) {
+          const query = lib.getTldr(command);
+          lib.log(user, "summarising " + query);
+          gary.tldr(query)
+            .then(summary => ch.send(summary))
             .catch(error => console.error(error))
         }
 

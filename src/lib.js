@@ -9,6 +9,12 @@ const google =
   "&searchType=image&q=";
 const frinkiac =
   "https://frinkiac.com/api/search?q=";
+const tldr =
+  "http://api.smmry.com/" +
+  "SM_API_KEY=" + auth.tldr +
+  "&SM_WITH_BREAK" +
+  "&SM_LENGTH=4" +
+  "&SM_URL=";
 
 exports.hasPrefix = msg => {
   return splitMessage(msg).prefix == prefix;
@@ -30,6 +36,10 @@ exports.getSimpsons = cmd => {
   return cmd.split(" ").slice(2).join(" ");
 }
 
+exports.getTldr = cmd => {
+  return cmd.split(" ").slice(1).join(" ");
+}
+
 exports.search = (type, query) => {
   switch (type) {
 
@@ -46,6 +56,11 @@ exports.search = (type, query) => {
         .catch(console.error)
       break;
 
+    case "tldr":
+      return http.get(tldr + query)
+        .then(response => (response.data.sm_api_content))
+        .then(summary => summary.replace(/\[BREAK\]/g, "\n\n"))
+        .catch(console.error)
   }
 }
 

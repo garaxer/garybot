@@ -2,6 +2,10 @@ const http = require("axios");
 const auth = require("../auth.json")
 const lib  = require("./lib.js")
 
+exports.test = () => {
+  return "Success.";
+}
+
 exports.time = () => {
   const today = new Date();
   const h = today.getHours();
@@ -37,4 +41,10 @@ exports.frinkiac = (query) => {
   return (query != "")
     ? lib.search("frinkiac", query)
     : Promise.resolve("Simpsons me what you fuck.")
+}
+
+exports.tldr = (query) => {
+  return (query != "")
+    ? lib.search("tldr", query)
+    : Promise.resolve("TL;DR what you fuck")
 }
