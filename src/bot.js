@@ -44,14 +44,14 @@ bot.on("message", message => {
         lib.log(user, "asking for a tasteless joke.")
         gary.yoMamma()
           .then(joke => ch.send(joke))
-          .catch(error => console.log(error));
+          .catch(error => console.error(error));
         break;
 
       case "show me a pup.":
         lib.log(user, "asking for a doggo.")
         gary.doggo()
           .then(pupLink => ch.send(pupLink))
-          .catch(error => console.log(error));
+          .catch(error => console.error(error));
         break;
 
       default:
@@ -61,7 +61,7 @@ bot.on("message", message => {
           lib.log(user, "searching for some " + "\"" + query + "\"")
           gary.google(query)
             .then(image => ch.send(image))
-            .catch(error => console.log(error));
+            .catch(error => console.error(error));
         }
 
         if (lib.advCheck("simpsons me", command)) {
@@ -69,7 +69,7 @@ bot.on("message", message => {
           lib.log(user, "searching for a Simpsons reference - " + "\"" + query + "\"")
           gary.frinkiac(query)
             .then(image => ch.send(image))
-            .catch(error => console.log(error))
+            .catch(error => console.error(error))
         }
 
     }
