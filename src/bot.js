@@ -40,6 +40,15 @@ bot.on("message", message => {
         });
       break;
 
+      case "who's the man?":
+      lib.log(user, "asking who the man is.");
+      ch.send(
+        (message.author.id == "186723484699721728")
+          ? "You da man."
+          : "You are not the man."
+      )
+      break;
+
       case "tell me a joke.":
         lib.log(user, "asking for a tasteless joke.")
         gary.yoMamma()
