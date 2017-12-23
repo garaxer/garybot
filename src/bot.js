@@ -21,38 +21,45 @@ bot.on("message", message => {
       case "test.":
         lib.log(user, "testing GaryBot.")
         ch.send(gary.test());
-        break;
+      break;
 
       case "what's the time?":
         lib.log(user, "asking for the time.")
         ch.send(gary.time());
-        break;
+      break;
 
       case "thanks.":
-      lib.log(user, "giving thanks to the GaryBot.")
+        lib.log(user, "giving thanks to the GaryBot.")
         ch.send(gary.youWelcome());
-        break;
+      break;
 
       case "load up celery man.":
         lib.log(user, "asking for a nude Tayne.")
         ch.send({
           file: "https://i.imgur.com/cqJ3cge.gif"
         });
-        break;
+      break;
 
       case "tell me a joke.":
         lib.log(user, "asking for a tasteless joke.")
         gary.yoMamma()
           .then(joke => ch.send(joke))
-          .catch(error => console.error(error));
-        break;
+          .catch(e => console.error(e));
+      break;
 
       case "show me a pup.":
         lib.log(user, "asking for a doggo.")
         gary.doggo()
           .then(pupLink => ch.send(pupLink))
-          .catch(error => console.error(error));
-        break;
+          .catch(e => console.error(e));
+      break;
+
+      case "where are you?":
+        lib.log(user, "asking for Gary's location.");
+        gary.whereGary()
+          .then(location => ch.send(location))
+          .catch(e => console.error(e))
+      break;
 
       default:
 
@@ -61,7 +68,7 @@ bot.on("message", message => {
           lib.log(user, "searching for some " + "\"" + query + "\"");
           gary.google(query)
             .then(image => ch.send(image))
-            .catch(error => console.error(error));
+            .catch(e => console.error(e));
         }
 
         if (lib.advCheck("simpsons me", command)) {
@@ -69,7 +76,7 @@ bot.on("message", message => {
           lib.log(user, "searching for a Simpsons reference - " + "\"" + query + "\"");
           gary.frinkiac(query)
             .then(image => ch.send(image))
-            .catch(error => console.error(error))
+            .catch(e => console.error(e))
         }
 
         if (lib.advCheck("tl;dr", command)) {
@@ -77,7 +84,7 @@ bot.on("message", message => {
           lib.log(user, "summarising " + query);
           gary.tldr(query)
             .then(summary => ch.send(summary))
-            .catch(error => console.error(error))
+            .catch(e => console.error(e))
         }
 
     }

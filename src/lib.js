@@ -1,5 +1,7 @@
 const http = require("axios");
 const auth = require("../auth.json");
+
+
 const prefix = "gary,";
 
 const google =
@@ -7,14 +9,21 @@ const google =
   "?key="        + auth.google   +
   "&cx="         + auth.searchID +
   "&searchType=image&q=";
+
 const frinkiac =
   "https://frinkiac.com/api/search?q=";
+
 const tldr =
   "http://api.smmry.com/" +
   "SM_API_KEY=" + auth.tldr +
   "&SM_WITH_BREAK" +
   "&SM_LENGTH=4" +
   "&SM_URL=";
+
+exports.getMap = (coords) =>
+  "https://maps.googleapis.com/maps/api/geocode/json" +
+  "?latlng=" + coords +
+  "&key=" + auth.google_map;
 
 exports.hasPrefix = msg => {
   return splitMessage(msg).prefix == prefix;
