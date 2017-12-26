@@ -4,7 +4,7 @@ const lib  = require("./lib.js");
 const coords = require("random-coordinates");
 
 exports.test = () => {
-  return "Success.";
+  return "Successful.";
 }
 
 exports.time = () => {
