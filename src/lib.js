@@ -37,16 +37,8 @@ exports.advCheck = (func, cmd) => {
   return cmd.split(" ").slice(0, func.split(" ").length).join(" ") == func;
 }
 
-exports.getQuery = cmd => {
-  return cmd.split(" ").slice(3).join(" ");
-}
-
-exports.getSimpsons = cmd => {
-  return cmd.split(" ").slice(2).join(" ");
-}
-
-exports.getTldr = cmd => {
-  return cmd.split(" ").slice(1).join(" ");
+exports.getParams = (func, cmd) => {
+  return cmd.split(" ").slice(func.split(" ").length).join(" ");
 }
 
 exports.search = (type, query) => {

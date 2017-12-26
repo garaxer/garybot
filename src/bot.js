@@ -1,7 +1,8 @@
 const Discord = require("discord.js");
 const auth    = require("../auth.json");
 const lib     = require("./lib.js");
-const gary    = require("./gary.js");
+const gary    = require("./gary.js").funcs;
+const cmds    = require("./gary.js").cmds;
 
 const bot     = new Discord.Client();
 
@@ -18,29 +19,29 @@ bot.on("message", message => {
 
     switch (command) {
 
-      case "test.":
+      case cmds.test:
         lib.log(user, "testing GaryBot.")
         ch.send(gary.test());
       break;
 
-      case "what's the time?":
+      case cmds.time:
         lib.log(user, "asking for the time.")
         ch.send(gary.time());
       break;
 
-      case "thanks.":
+      case cmds.thanks:
         lib.log(user, "giving thanks to the GaryBot.")
         ch.send(gary.youWelcome());
       break;
 
-      case "load up celery man.":
+      case cmds.celery:
         lib.log(user, "asking for a nude Tayne.")
         ch.send({
           file: "https://i.imgur.com/cqJ3cge.gif"
         });
       break;
 
-      case "who's the man?":
+      case cmds.man:
       lib.log(user, "asking who the man is.");
       ch.send(
         (message.author.id == "186723484699721728")
@@ -49,21 +50,21 @@ bot.on("message", message => {
       )
       break;
 
-      case "tell me a joke.":
+      case cmds.joke:
         lib.log(user, "asking for a tasteless joke.")
         gary.yoMamma()
           .then(joke => ch.send(joke))
           .catch(e => console.error(e));
       break;
 
-      case "show me a pup.":
+      case cmds.pup:
         lib.log(user, "asking for a doggo.")
         gary.doggo()
           .then(pupLink => ch.send(pupLink))
           .catch(e => console.error(e));
       break;
 
-      case "where are you?":
+      case cmds.where:
         lib.log(user, "asking for Gary's location.");
         gary.whereGary()
           .then(location => ch.send(location))
@@ -72,24 +73,24 @@ bot.on("message", message => {
 
       default:
 
-        if (lib.advCheck("show me some", command)) {
-          const query = lib.getQuery(command);
+        if (lib.advCheck(cmds.google, command)) {
+          const query = lib.getParams(cmds.google, command);
           lib.log(user, "searching for some " + "\"" + query + "\"");
           gary.google(query)
             .then(image => ch.send(image))
             .catch(e => console.error(e));
         }
 
-        if (lib.advCheck("simpsons me", command)) {
-          const query = lib.getSimpsons(command);
+        if (lib.advCheck(cmds.frinkiac, command)) {
+          const query = lib.getParams(cmds.frinkiac, command);
           lib.log(user, "searching for a Simpsons reference - " + "\"" + query + "\"");
           gary.frinkiac(query)
             .then(image => ch.send(image))
             .catch(e => console.error(e))
         }
 
-        if (lib.advCheck("tl;dr", command)) {
-          const query = lib.getTldr(command);
+        if (lib.advCheck(cmds.tldr, command)) {
+          const query = lib.getParams(cmds.tldr, command);
           lib.log(user, "summarising " + query);
           gary.tldr(query)
             .then(summary => ch.send(summary))
