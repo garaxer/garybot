@@ -7,6 +7,9 @@ const cmds    = require("./gary.js").cmds;
 const bot     = new Discord.Client();
 
 bot.on("ready", () => {
+  console.log("Reactor online.");
+  console.log("Sensors online.");
+  console.log("Weapons online.");
   console.log("All systems nominal.");
 });
 
