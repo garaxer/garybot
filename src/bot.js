@@ -46,11 +46,7 @@ bot.on("message", message => {
 
       case cmds.man:
       lib.log(user, "asking who the man is.");
-      ch.send(	
-        (message.author.id == "182083904545488896")
-          ? "You da man."
-          : "You are not the man."
-      )
+      ch.send(gary.whoDaMan(message.author.id))
       break;
 
       case cmds.joke:
