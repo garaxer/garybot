@@ -102,18 +102,18 @@ bot.on("message", message => {
 
     }
   }
-  
+  /*
   if (lib.hasSuffix(message)) {
 	  const ch      = message.channel;
 	  const user    = message.author.username;
-	  const command = lib.getCommand(message);
+	  const command = lib.getSuffixCommand(message);
 		
 	  if (command == cmds.test){
         lib.log(user, "testing GaryBot.")
         ch.send(gary.test());
       }
 	  
-  }
+  }*/
 
 });
 

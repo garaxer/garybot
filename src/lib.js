@@ -31,11 +31,15 @@ exports.hasPrefix = msg => {
 }
 
 exports.hasSuffix = msg => {
-  return splitMessage2(msg).suffix == suffix;
+  return splitMessageSuffix(msg).suffix == suffix;
 }
 
 exports.getCommand = msg => {
   return splitMessage(msg).command.join(" ");
+}
+
+exports.getSuffixCommand = msg => {
+  return splitMessageSuffix(msg).command.join(" ");
 }
 
 //advCheck = function(func,cmd) {}
@@ -81,7 +85,8 @@ const splitMessage = msg => {
   return {prefix: prefix, command: command};
 }
 
-const splitMessage2 = msg => {
-  const [...command, suffix] = msg.content.split(" ").map(x => x.toLowerCase());
+const splitMessageSuffix = msg => {
+  const [string] = msg.content.split(" ").map(x => x.toLowerCase());
+  console.log(string);
   return {suffix: suffix, command: command};
 }
