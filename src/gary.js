@@ -69,6 +69,11 @@ exports.funcs = {
     .catch(console.error)
   },
 
+  whoDaMan: (id) =>
+    (id == "186723484699721728" || id == "182083904545488896")
+      ? "You da man."
+      : "You are not the man.",
+
   google: (query) => {
     return (query != "")
     ? lib.search("google", query)
