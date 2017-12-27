@@ -12,8 +12,8 @@ bot.on("ready", () => {
 
 bot.on("message", message => {
   if (lib.hasPrefix(message)) {
-
-    const ch      = message.channel;
+	
+	const ch      = message.channel;
     const user    = message.author.username;
     const command = lib.getCommand(message);
 
@@ -43,8 +43,8 @@ bot.on("message", message => {
 
       case cmds.man:
       lib.log(user, "asking who the man is.");
-      ch.send(
-        (message.author.id == "186723484699721728")
+      ch.send(	
+        (message.author.id == "182083904545488896")
           ? "You da man."
           : "You are not the man."
       )
@@ -98,6 +98,18 @@ bot.on("message", message => {
         }
 
     }
+  }
+  
+  if (lib.hasSuffix(message)) {
+	  const ch      = message.channel;
+	  const user    = message.author.username;
+	  const command = lib.getCommand(message);
+		
+	  if (command == cmds.test){
+        lib.log(user, "testing GaryBot.")
+        ch.send(gary.test());
+      }
+	  
   }
 
 });

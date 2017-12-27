@@ -14,6 +14,7 @@ exports.cmds = {
   joke      : "tell me a joke.",
   pup       : "show me a pup.",
   where     : "where are you?",
+  who		: "who are you?",
 
   // Advanced Commands
   google    : "show me some",
