@@ -13,6 +13,13 @@ bot.on("ready", () => {
   console.log("All systems nominal.");
 });
 
+bot.on("presenceUpdate", (oldMember, newMember) => {
+    if (oldMember.presence.status !== newMember.presence.status) {
+        console.log(`${newMember.user.username} is now ${newMember.presence.status}`);
+        bot.channels.get('395554251729928192').send(`${newMember.user.username} is now ${newMember.presence.status}`);
+    }
+});
+
 bot.on("message", message => {
   if (lib.hasSuffix(message) || lib.hasPrefix(message)) {
 	
