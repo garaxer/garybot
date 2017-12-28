@@ -8,6 +8,7 @@ exports.cmds = {
   // Basic Commands
   test      : "test.",
   time      : "what's the time?",
+  time2      : "what's the time",
   thanks    : "thanks.",
   celery    : "load up celery man",
   man       : "who's the man?",

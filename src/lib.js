@@ -3,7 +3,7 @@ const auth = require("../auth.json");
 
 
 const prefix = "gary,";
-const suffix = ",gary";
+const suffix = "gary";
 
 const google =
   "https://www.googleapis.com/customsearch/v1" +
@@ -30,23 +30,20 @@ exports.hasPrefix = msg => {
   return splitMessage(msg).prefix == prefix;
 }
 
-exports.hasSuffix = msg => {
-  return splitMessageSuffix(msg).suffix == suffix;
-}
-
 exports.getCommand = msg => {
   return splitMessage(msg).command.join(" ");
 }
-
 exports.getSuffixCommand = msg => {
-  return splitMessageSuffix(msg).command.join(" ");
+  return splitSuffixMessage(msg).command.join(" ");
 }
 
-//advCheck = function(func,cmd) {}
+exports.hasSuffix = msg => {
+  return splitSuffixMessage(msg).suffix.includes(suffix);
+}
+
 exports.advCheck = (func, cmd) => {
   return cmd.split(" ").slice(0, func.split(" ").length).join(" ") == func;
 }
-
 
 exports.getParams = (func, cmd) => {
   return cmd.split(" ").slice(func.split(" ").length).join(" ");
@@ -85,11 +82,9 @@ const splitMessage = msg => {
   return {prefix: prefix, command: command};
 }
 
-const splitMessageSuffix = msg => {
-  [string] = msg.content.split(" ").map(x => x.toLowerCase());
-  console.log("String+" +string);
-  const suffix = string[string.length - 1];
-  console.log("suffix+" +suffix);
-  const command = string;
-  return {suffix: suffix, command: command};
+const splitSuffixMessage = msg => {
+  const [...command] = msg.content.split(" ").map(x => x.toLowerCase());
+  return {suffix: command.slice(-1)[0], command: command.slice(0, -1)};
 }
+
+

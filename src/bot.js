@@ -14,11 +14,13 @@ bot.on("ready", () => {
 });
 
 bot.on("message", message => {
-  if (lib.hasPrefix(message)) {
+  if (lib.hasSuffix(message) || lib.hasPrefix(message)) {
 	
 	const ch      = message.channel;
     const user    = message.author.username;
-    const command = lib.getCommand(message);
+    const command = (lib.hasSuffix(message))
+	  ? lib.getSuffixCommand(message)
+      : lib.getCommand(message);
 
     switch (command) {
 
@@ -97,20 +99,7 @@ bot.on("message", message => {
         }
 
     }
-  }
-  
-  if (lib.hasSuffix(message)) {
-	  const ch      = message.channel;
-	  const user    = message.author.username;
-	  const command = lib.getSuffixCommand(message);
-		
-	  if (command == cmds.test){
-        lib.log(user, "testing GaryBot.")
-        ch.send(gary.test());
-      }
-	  
-  }
-
+  } 
 });
 
 bot.login(auth.token)
