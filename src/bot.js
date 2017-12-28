@@ -34,6 +34,11 @@ bot.on("message", message => {
         ch.send(gary.time());
       break;
 
+      case cmds.time2:
+          lib.log(user, "asking for the time.")
+          ch.send(gary.time());
+      break;
+
       case cmds.thanks:
         lib.log(user, "giving thanks to the GaryBot.")
         ch.send(gary.youWelcome());
@@ -47,8 +52,8 @@ bot.on("message", message => {
       break;
 
       case cmds.man:
-      lib.log(user, "asking who the man is.");
-      ch.send(gary.whoDaMan(message.author.id))
+        lib.log(user, "asking who the man is.");
+        ch.send(gary.whoDaMan(message.author.id))
       break;
 
       case cmds.joke:
