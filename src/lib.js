@@ -86,7 +86,10 @@ const splitMessage = msg => {
 }
 
 const splitMessageSuffix = msg => {
-  const [string] = msg.content.split(" ").map(x => x.toLowerCase());
-  console.log(string);
+  [string] = msg.content.split(" ").map(x => x.toLowerCase());
+  console.log("String+" +string);
+  const suffix = string[string.length - 1];
+  console.log("suffix+" +suffix);
+  const command = string;
   return {suffix: suffix, command: command};
 }

@@ -98,7 +98,7 @@ bot.on("message", message => {
 
     }
   }
-  /*
+  
   if (lib.hasSuffix(message)) {
 	  const ch      = message.channel;
 	  const user    = message.author.username;
@@ -109,7 +109,7 @@ bot.on("message", message => {
         ch.send(gary.test());
       }
 	  
-  }*/
+  }
 
 });
 
