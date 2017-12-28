@@ -13,6 +13,28 @@ bot.on("ready", () => {
   console.log("All systems nominal.");
 });
 
+/*bot.on("presenceUpdate", (oldMember, newMember) => {
+    oldMember.
+
+   // 182083904545488896
+});*/
+
+bot.on('voiceStateUpdate', (oldMember, newMember) => {
+    let newUserChannel = newMember.voiceChannel
+    let oldUserChannel = oldMember.voiceChannel
+
+    if (oldUserChannel === undefined && newUserChannel !== undefined) {
+
+        console.log("worked"); //never shows
+
+    } else if (newUserChannel === undefined) {
+
+        console.log("worked");
+
+    }
+});
+
+
 bot.on("presenceUpdate", (oldMember, newMember) => {
     if (oldMember.presence.status !== newMember.presence.status) {
         console.log(`${newMember.user.username} is now ${newMember.presence.status}`);
