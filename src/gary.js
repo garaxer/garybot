@@ -64,7 +64,7 @@ exports.funcs = {
         + place.geometry.location.lat + ","
         + place.geometry.location.lng
       } else {
-        return whereGary()
+        return this.funcs.whereGary()
       }
     })
     .catch(console.error)
