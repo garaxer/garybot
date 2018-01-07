@@ -1,94 +1,88 @@
 const http = require("axios");
 const auth = require("../auth.json");
 const lib  = require("./lib.js");
-const coords = require("random-coordinates");
 
-exports.cmds = {
+exports.feats = [
 
-  // Basic Commands
-  test      : "test.",
-  time      : "what's the time?",
-  thanks    : "thanks.",
-  celery    : "load up celery man",
-  man       : "who's the man?",
-  joke      : "tell me a joke.",
-  pup       : "show me a pup.",
-  where     : "where are you?",
-
-  // Advanced Commands
-  google    : "show me some",
-  frinkiac  : "simpsons me",
-  tldr      : "tl;dr",
-}
-
-exports.funcs = {
-
-  test: () => {
-    return "Successful.";
+  { cmd:  "test.",
+    log:  () => "testing GaryBot.",
+    func: () => Promise.resolve("Successful.")
   },
 
-  time: () => {
-    const today = new Date();
-    const h = today.getHours();
-    const m = today.getMinutes();
-    const s = today.getSeconds();
-    const time = h + ":" + m;
-    return "It's " + time + " and " + s + " seconds.";
+  { cmd: "what's the time?",
+    log:  () => "asking for the time.",
+    func: () => {
+      const today = new Date();
+      const h = today.getHours();
+      const m = today.getMinutes();
+      const s = today.getSeconds();
+      const time = h + ":" + m;
+      return Promise.resolve("It's " + time + " and " + s + " seconds.");
+    }
   },
 
-  youWelcome: () => {
-    return "No probs."
+  { cmd:  "thanks.",
+    log:  () => "is thanking the GaryBot.",
+    func: () => Promise.resolve("No probs, buddy.")
   },
 
-  yoMamma: () => {
-    return http.get("http://api.yomomma.info")
-    .then(response => response.data.joke)
-    .catch(console.error)
+  { cmd:  "load up celery man.",
+    log:  () => "asking for a nude Tayne.",
+    func: () => Promise.resolve({ file: "https://i.imgur.com/cqJ3cge.gif" })
   },
 
-  doggo: () => {
-    return http.get("https://random.dog/woof.json")
-    .then(response => response.data.url)
-    .catch(console.error)
+  { cmd:  "who's the man?",
+    log:  () => "asking who the man is.",
+    func: (p, user) => Promise.resolve((lib.isTheMan(user)) ? "You da man!" : "You are not the man.")
   },
 
-  whereGary: () => {
-    return http.get(lib.getMap(coords({ fixed: 7 }).split(" ").join("")))
-    .then(response => {
-      if (response.data.status == "OK") {
-        const place = response.data.results[0];
-        return "I think I'm in "
-        + place.formatted_address + "\n"
-        + "https://www.google.com.au/maps/place/"
-        + place.geometry.location.lat + ","
-        + place.geometry.location.lng
-      } else {
-        return this.funcs.whereGary()
-      }
-    })
-    .catch(console.error)
+  { cmd:  "tell me a joke.",
+    log:  () => "asking for a tasteless joke.",
+    func: () => {
+      return http.get("http://api.yomomma.info")
+      .then(response => response.data.joke)
+      .catch(console.error)
+    }
   },
 
-  whoDaMan: (id) =>
-    (id == "186723484699721728" || id == "182083904545488896")
-      ? "You da man."
-      : "You are not the man.",
-
-  google: (query) => {
-    return (query != "")
-    ? lib.search("google", query)
-    : Promise.resolve("Show me some what you fuck.")
+  { cmd:  "show me a pup.",
+    log:  () => "asking for a pup.",
+    func: () => {
+      return http.get("https://random.dog/woof.json")
+      .then(response => response.data.url)
+      .catch(console.error)
+    }
   },
 
-  frinkiac: (query) => {
-    return (query != "")
-    ? lib.search("frinkiac", query)
-    : Promise.resolve("Simpsons me what you fuck.")
+  { cmd:  "where are you?",
+    log:  () => "asking for GaryBot's location.",
+    func: () => lib.search("randomPlace")
   },
 
-  tldr: (query) => {
-    return (query != "")
-    ? lib.search("tldr", query)
-    : Promise.resolve("TL;DR what you fuck")
+  { cmd:  "show me some",
+    log:  (query) => "searching for some " + query,
+    func: (query) => {
+      return (query != "")
+      ? lib.search("google", query)
+      : Promise.resolve("Show me some what you fuck.")
+    }
+  },
+
+  { cmd:  "simpsons me",
+    log:  (query) => "searching for a Simpsons reference - " + query,
+    func: (query) => {
+      return (query != "")
+      ? lib.search("frinkiac", query)
+      : Promise.resolve("Simpsons me what you fuck.")
+    }
+  },
+
+  { cmd:  "tl;dr",
+    log:  (query) => "summarising " + query,
+    func: (query) => {
+      return (query != "")
+      ? lib.search("tldr", query)
+      : Promise.resolve("TL;DR what you fuck")
+    }
   }
-}
+]

@@ -1,6 +1,7 @@
-const http = require("axios");
-const auth = require("../auth.json");
-
+const http   = require("axios");
+const auth   = require("../auth.json");
+const coords = require("random-coordinates");
+const gary   = require("./gary.js").feats
 
 const prefix = "gary,";
 
@@ -33,7 +34,9 @@ exports.getCommand = msg => {
   return splitMessage(msg).command.join(" ");
 }
 
-exports.advCheck = (func, cmd) => {
+exports.featSearch = cmd => Promise.resolve(gary.filter( f => this.featCheck(f.cmd, cmd))[0])
+
+exports.featCheck = (func, cmd) => {
   return cmd.split(" ").slice(0, func.split(" ").length).join(" ") == func;
 }
 
@@ -62,8 +65,28 @@ exports.search = (type, query) => {
         .then(response => (response.data.sm_api_content))
         .then(summary => summary.replace(/\[BREAK\]/g, "\n\n"))
         .catch(console.error)
+      break;
+
+    case "randomPlace":
+      return http.get(this.getMap(coords({ fixed: 7 }).split(" ").join("")))
+        .then(response => {
+          if (response.data.status == "OK") {
+            const place = response.data.results[0];
+            return "I think I'm in "
+            + place.formatted_address + "\n"
+            + "https://www.google.com.au/maps/place/"
+            + place.geometry.location.lat + ","
+            + place.geometry.location.lng
+          } else {
+            return this.search("randomPlace")
+          }
+        })
+        .catch(console.error)
+      break;
   }
 }
+
+exports.isTheMan = (id) => (id == "186723484699721728" || id == "182083904545488896");
 
 exports.log = (user, task) => {
   console.log("User " + user + " is " + task);
