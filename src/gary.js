@@ -42,7 +42,7 @@ exports.feats = [
       return http.get("http://api.yomomma.info")
       .then(response => response.data.joke)
       .catch(console.error)
-    };
+    }
   },
 
   { cmd:  "show me a pup.",
@@ -51,7 +51,7 @@ exports.feats = [
       return http.get("https://random.dog/woof.json")
       .then(response => response.data.url)
       .catch(console.error)
-    };
+    }
   },
 
   { cmd:  "where are you?",
@@ -65,7 +65,7 @@ exports.feats = [
       return (query != "")
       ? lib.search("google", query)
       : Promise.resolve("Show me some what you fuck.")
-    };
+    }
   },
 
   { cmd:  "simpsons me",
@@ -74,7 +74,7 @@ exports.feats = [
       return (query != "")
       ? lib.search("frinkiac", query)
       : Promise.resolve("Simpsons me what you fuck.")
-    };
+    }
   },
 
   { cmd:  "tl;dr",
@@ -83,6 +83,15 @@ exports.feats = [
       return (query != "")
       ? lib.search("tldr", query)
       : Promise.resolve("TL;DR what you fuck")
-    };
-  }
+    }
+  },
+
+  { cmd:  "what's good on",
+    log:  (query) => "looking for popular threads on " + query,
+    func: (query) => {
+      return (query != "")
+        ? lib.search("4chan", query)
+        : Promise.resolve("What's good on what you fuck.")
+    }
+  },
 ]
