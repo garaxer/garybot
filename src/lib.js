@@ -1,11 +1,7 @@
 const http   = require("axios");
 const auth   = require("../auth.json");
 const coords = require("random-coordinates");
-<<<<<<< HEAD
 const gary   = require("./gary.js").feats;
-=======
-const gary   = require("./gary.js").feats
->>>>>>> Rewrote listener using promises
 
 const prefix = "gary,";
 const suffix = "gary.";
