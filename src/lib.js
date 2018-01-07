@@ -21,6 +21,33 @@ const tldr =
   "&SM_LENGTH=4" +
   "&SM_URL=";
 
+const chan = (board) => "https://a.4cdn.org" + board + "catalog.json"
+
+const sortChan = (board) => {
+  var sorted = [];
+  for (i in board) {
+    const threads = board[i].threads
+    for (j in threads) {
+      sorted.push({
+        no      : threads[j].no,
+        replies : threads[j].replies
+      });
+    }
+  }
+
+  sorted.sort((a,b) => {
+    let comparison = 0;
+    if (a.replies > b.replies) {
+      comparison = -1;
+    } else if (a.replies < b.replies) {
+      comparison = 1;
+    }
+    return comparison;
+  });
+
+  return sorted;
+}
+
 exports.getMap = (coords) =>
   "https://maps.googleapis.com/maps/api/geocode/json" +
   "?latlng=" + coords +
@@ -81,6 +108,16 @@ exports.search = (type, query) => {
             return this.search("randomPlace")
           }
         })
+        .catch(console.error)
+      break;
+
+    case "4chan":
+      return http.get(chan(query))
+        .then(response => response.data)
+        .then(boards => sortChan(boards)[0])
+        .then(thread =>
+          "This thread has the most replies on " + query + ":\n" +
+          "http://boards.4chan.org" + query + "thread/" + thread.no)
         .catch(console.error)
       break;
   }
