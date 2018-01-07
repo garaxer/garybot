@@ -1,7 +1,7 @@
 const http   = require("axios");
 const auth   = require("../auth.json");
 const coords = require("random-coordinates");
-const gary   = require("./gary.js").feats
+const gary   = require("./gary.js").feats;
 
 const prefix = "gary,";
 

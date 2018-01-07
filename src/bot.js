@@ -20,9 +20,9 @@ bot.on("message", message => {
 
     lib.featSearch(command)
       .then(feat => {
-        const params  = lib.getParams(feat.cmd, command);
+        const params = lib.getParams(feat.cmd, command);
         lib.log(user, feat.log(params));
-        return feat.func(params, message.author.id)
+        return feat.func(params, message.author.id);
       })
       .then(msg => ch.send(msg))
       .catch(error => {
@@ -33,4 +33,4 @@ bot.on("message", message => {
 
 });
 
-bot.login(auth.token)
+bot.login(auth.token);
