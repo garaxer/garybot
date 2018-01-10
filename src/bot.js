@@ -45,9 +45,9 @@ bot.on("message", message => {
 	
 	const ch      = message.channel;
     const user    = message.author.username;
-    const command = (lib.hasSuffix(message))
-	  ? lib.getSuffixCommand(message)
-      : lib.getCommand(message);
+    const command = (lib.hasPrefix(message))
+	  ? lib.getCommand(message)
+      : lib.getSuffixCommand(message);
 
 
     lib.featSearch(command)
