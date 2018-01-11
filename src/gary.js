@@ -11,7 +11,7 @@ exports.feats = [
   },
 
   {
-      cmd: "what's the time?",
+      cmd: "what's the time",
       log: () => "asking for the time.",
       func: () => {
           const today = new Date();
@@ -24,7 +24,7 @@ exports.feats = [
   },
 
   {
-      cmd: "thanks.",
+      cmd: "thanks",
       log: () => "is thanking the GaryBot.",
       func: () => Promise.resolve("No probs, buddy.")
   },
