@@ -59,7 +59,10 @@ exports.hasPrefix = msg => {
 }
 
 exports.getCommand = msg => {
-    return splitMessage(msg).command.join(" ");
+    const cmd = splitMessage(msg).command.join(" ");
+    return (cmd.split("").splice(-1) == '.' || cmd.split("").splice(-1) == '?')
+        ? cmd.split("").slice(0, -1).join("")
+        : cmd;
 }
 
 exports.featSearch = cmd => Promise.resolve(gary.filter( f => this.featCheck(f.cmd, cmd))[0])
@@ -143,11 +146,6 @@ exports.log = (user, task) => {
 
 const splitMessage = msg => {
     const [prefix, ...command] = msg.content.split(" ").map(x => x.toLowerCase());
-    if(command.length > 0){
-        while   (command[command.length-1][command[command.length-1].length-1] == '.' || command[command.length-1][command[command.length-1].length-1] == '?'){
-            command[command.length-1] = command[command.length-1].slice(0, -1);
-        }
-    }
     return {prefix: prefix, command: command};
 }
 
