@@ -84,8 +84,6 @@ exports.getSuffixCommand = msg => {
 exports.hasSuffix = msg => {
     return splitSuffixMessage(msg).suffix.includes(suffix);
 }
-//suffix
-
 
 exports.search = (type, query) => {
     switch (type) {

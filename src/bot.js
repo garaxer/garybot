@@ -20,7 +20,6 @@ bot.on("message", message => {
       ? lib.getCommand(message)
       : lib.getSuffixCommand(message);
 
-
     lib.featSearch(command)
       .then(feat => {
         const params = lib.getParams(feat.cmd, command);
