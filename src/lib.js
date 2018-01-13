@@ -85,7 +85,6 @@ exports.hasSuffix = msg => {
 }
 
 exports.search = (type, query) => {
-<<<<<<< HEAD
     switch (type) {
 
         case "google":
@@ -135,57 +134,6 @@ exports.search = (type, query) => {
               .catch(console.error)
             break;
     }
-=======
-  switch (type) {
-
-    case "google":
-      return http.get(google + query)
-        .then(response => response.data.items[0].link)
-        .catch(console.error)
-      break;
-
-    case "frinkiac":
-      return http.get(frinkiac + query)
-        .then(response => response.data[0])
-        .then(data => "https://frinkiac.com/meme/" + data.Episode + "/" + data.Timestamp)
-        .catch(console.error)
-      break;
-
-    case "tldr":
-      return http.get(tldr + query)
-        .then(response => (response.data.sm_api_content))
-        .then(summary => summary.replace(/\[BREAK\]/g, "\n\n"))
-        .catch(console.error)
-      break;
-
-    case "randomPlace":
-      return http.get(this.getMap(coords({ fixed: 7 }).split(" ").join("")))
-        .then(response => {
-          if (response.data.status == "OK") {
-            const place = response.data.results[0];
-            return "I think I'm in "
-            + place.formatted_address + "\n"
-            + "https://www.google.com.au/maps/place/"
-            + place.geometry.location.lat + ","
-            + place.geometry.location.lng
-          } else {
-            return this.search("randomPlace")
-          }
-        })
-        .catch(console.error)
-      break;
-
-    case "4chan":
-      return http.get(chan(query))
-        .then(response => response.data)
-        .then(boards => sortChan(boards)[0])
-        .then(thread =>
-          "This thread has the most replies on " + query + ":\n" +
-          "http://boards.4chan.org" + query + "thread/" + thread.no)
-        .catch(console.error)
-      break;
-  }
->>>>>>> Added 4chan functionality
 }
 
 exports.isTheMan = (id) => (id == "186723484699721728" || id == "182083904545488896");
