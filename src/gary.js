@@ -4,12 +4,12 @@ const lib  = require("./lib.js");
 
 exports.feats = [
 
-  { cmd:  "test.",
+  { cmd:  "test",
     log:  () => "testing GaryBot.",
     func: () => Promise.resolve("Successful.")
   },
 
-  { cmd: "what's the time?",
+  { cmd: "what's the time",
     log:  () => "asking for the time.",
     func: () => {
       const today = new Date();
@@ -21,22 +21,22 @@ exports.feats = [
     }
   },
 
-  { cmd:  "thanks.",
+  { cmd:  "thanks",
     log:  () => "is thanking the GaryBot.",
     func: () => Promise.resolve("No probs, buddy.")
   },
 
-  { cmd:  "load up celery man.",
+  { cmd:  "load up celery man",
     log:  () => "asking for a nude Tayne.",
     func: () => Promise.resolve({ file: "https://i.imgur.com/cqJ3cge.gif" })
   },
 
-  { cmd:  "who's the man?",
+  { cmd:  "who's the man",
     log:  () => "asking who the man is.",
     func: (p, user) => Promise.resolve((lib.isTheMan(user)) ? "You da man!" : "You are not the man.")
   },
 
-  { cmd:  "tell me a joke.",
+  { cmd:  "tell me a joke",
     log:  () => "asking for a tasteless joke.",
     func: () => {
       return http.get("http://api.yomomma.info")
@@ -54,7 +54,7 @@ exports.feats = [
     }
   },
 
-  { cmd:  "where are you?",
+  { cmd:  "where are you",
     log:  () => "asking for GaryBot's location.",
     func: () => lib.search("randomPlace")
   },
