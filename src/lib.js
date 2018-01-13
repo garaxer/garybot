@@ -60,9 +60,10 @@ exports.hasPrefix = msg => {
 
 exports.getCommand = msg => {
     const cmd = splitMessage(msg).command.join(" ");
-    return (cmd.split("").splice(-1) == '.' || cmd.split("").splice(-1) == '?')
-        ? cmd.split("").slice(0, -1).join("")
-        : cmd;
+    const punct = cmd.split("").splice(-1);
+    return (punct == '.' || punct == '?')
+      ? cmd.slice(0, -1)
+      : cmd;
 }
 
 exports.featSearch = cmd => Promise.resolve(gary.filter( f => this.featCheck(f.cmd, cmd))[0])
@@ -153,5 +154,3 @@ const splitSuffixMessage = msg => {
   const [...command] = msg.content.split(" ").map(x => x.toLowerCase());
   return {suffix: command.slice(-1)[0], command: command.slice(0, -1)};
 }
-
-
