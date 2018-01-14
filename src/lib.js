@@ -35,7 +35,6 @@ const sortChan = (board) => {
       });
     }
   }
-
   sorted.sort((a,b) => {
     let comparison = 0;
     if (a.replies > b.replies) {
@@ -49,40 +48,54 @@ const sortChan = (board) => {
   return sorted;
 }
 
-exports.getMap = (coords) =>
-    "https://maps.googleapis.com/maps/api/geocode/json" +
-    "?latlng=" + coords +
-    "&key=" + auth.google_map;
+const google_map = (coords) =>
+  "https://maps.googleapis.com/maps/api/geocode/json" +
+  "?latlng=" + coords +
+  "&key=" + auth.google_map
 
-exports.hasPrefix = msg => {
-    return splitMessage(msg).prefix == prefix;
+const splitMessage = {
+  p: msg => {
+    const [gary, ...command] = msg.content.split(" ").map(x => x.toLowerCase());
+    return {gary: gary, command: command};
+  },
+
+  s: msg => {
+    const message = msg.content.split(" ").map(x => x.toLowerCase());
+    const command = message.slice(0,-1);
+    const gary  = message.slice(-1)[0];
+    return {gary: gary, command: command};
+  }
 }
 
+const hasPrefix = msg => splitMessage.p(msg).gary == prefix;
+
+const hasSuffix = msg => splitMessage.s(msg).gary == suffix;
+
+const stripPunc = cmd => {
+  const puncs = ['.', '?', '!', ','];
+  const last = cmd.slice(-1);
+  return (puncs.includes(last))
+    ? cmd.slice(0, -1)
+    : cmd;
+}
+
+exports.isCommand = msg => (hasPrefix(msg) || hasSuffix(msg))
+
 exports.getCommand = msg => {
-    const cmd = splitMessage(msg).command.join(" ");
-    const punct = cmd.split("").splice(-1);
-    return (punct == '.' || punct == '?')
-      ? cmd.slice(0, -1)
-      : cmd;
+  if (hasPrefix(msg)) {
+    const cmd = splitMessage.p(msg).command.join(" ");
+    return stripPunc(cmd);
+  } else if (hasSuffix(msg)) {
+    const cmd = splitMessage.s(msg).command.join(" ");
+    return stripPunc(cmd);
+  }
 }
 
 exports.featSearch = cmd => Promise.resolve(gary.filter( f => this.featCheck(f.cmd, cmd))[0])
 
-exports.featCheck = (func, cmd) => {
-  return cmd.split(" ").slice(0, func.split(" ").length).join(" ") == func;
-}
+exports.featCheck = (func, cmd) => cmd.split(" ").slice(0, func.split(" ").length).join(" ") == func;
 
-exports.getParams = (func, cmd) => {
-    return cmd.split(" ").slice(func.split(" ").length).join(" ");
-}
-
-exports.getSuffixCommand = msg => {
-    return splitSuffixMessage(msg).command.join(" ");
-}
-
-exports.hasSuffix = msg => {
-    return splitSuffixMessage(msg).suffix.includes(suffix);
-}
+exports.getParams = (func, cmd) => cmd.split(" ").slice(func.split(" ").length).join(" ");
 
 exports.search = (type, query) => {
   switch (type) {
@@ -108,7 +121,7 @@ exports.search = (type, query) => {
       break;
 
     case "randomPlace":
-      return http.get(this.getMap(coords({ fixed: 7 }).split(" ").join("")))
+      return http.get(google_map(coords({ fixed: 7 }).split(" ").join("")))
         .then(response => {
           if (response.data.status == "OK") {
             const place = response.data.results[0];
@@ -138,16 +151,4 @@ exports.search = (type, query) => {
 
 exports.isTheMan = (id) => (id == "186723484699721728" || id == "182083904545488896");
 
-exports.log = (user, task) => {
-    console.log("User " + user + " is " + task);
-}
-
-const splitMessage = msg => {
-    const [prefix, ...command] = msg.content.split(" ").map(x => x.toLowerCase());
-    return {prefix: prefix, command: command};
-}
-
-const splitSuffixMessage = msg => {
-  const [...command] = msg.content.split(" ").map(x => x.toLowerCase());
-  return {suffix: command.slice(-1)[0], command: command.slice(0, -1)};
-}
+exports.log = (user, task) => console.log("User " + user + " is " + task);
