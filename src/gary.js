@@ -31,6 +31,7 @@ exports.feats = [
     func: () => Promise.resolve({ file: "https://i.imgur.com/cqJ3cge.gif" })
   },
 
+
   { cmd:  "who's the man",
     log:  () => "asking who the man is.",
     func: (p, user) => Promise.resolve((lib.isTheMan(user)) ? "You da man!" : "You are not the man.")
