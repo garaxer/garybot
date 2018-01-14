@@ -148,6 +148,6 @@ const splitMessage = msg => {
 }
 
 const splitSuffixMessage = msg => {
-  const [...command] = msg.content.split(" ").map(x => x.toLowerCase());
-  return {suffix: command.slice(-1)[0], command: command.slice(0, -1)};
+    const [...command] = msg.content.split(" ").map(x => x.toLowerCase());
+    return {suffix: command.slice(-1)[0], command: command.slice(0, -1)};
 }
