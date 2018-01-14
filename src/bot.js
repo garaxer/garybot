@@ -12,11 +12,13 @@ bot.on("ready", () => {
 });
 
 bot.on("message", message => {
-  if (lib.hasPrefix(message)) {
+  if (lib.hasSuffix(message) || lib.hasPrefix(message)) {
 
     const ch      = message.channel;
     const user    = message.author.username;
-    const command = lib.getCommand(message);
+    const command = (lib.hasPrefix(message))
+      ? lib.getCommand(message)
+      : lib.getSuffixCommand(message);
 
     lib.featSearch(command)
       .then(feat => {

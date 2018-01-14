@@ -4,6 +4,7 @@ const coords = require("random-coordinates");
 const gary   = require("./gary.js").feats;
 
 const prefix = "gary,";
+const suffix = "gary.";
 
 const google =
   "https://www.googleapis.com/customsearch/v1" +
@@ -49,16 +50,20 @@ const sortChan = (board) => {
 }
 
 exports.getMap = (coords) =>
-  "https://maps.googleapis.com/maps/api/geocode/json" +
-  "?latlng=" + coords +
-  "&key=" + auth.google_map;
+    "https://maps.googleapis.com/maps/api/geocode/json" +
+    "?latlng=" + coords +
+    "&key=" + auth.google_map;
 
 exports.hasPrefix = msg => {
-  return splitMessage(msg).prefix == prefix;
+    return splitMessage(msg).prefix == prefix;
 }
 
 exports.getCommand = msg => {
-  return splitMessage(msg).command.join(" ");
+    const cmd = splitMessage(msg).command.join(" ");
+    const punct = cmd.split("").splice(-1);
+    return (punct == '.' || punct == '?')
+      ? cmd.slice(0, -1)
+      : cmd;
 }
 
 exports.featSearch = cmd => Promise.resolve(gary.filter( f => this.featCheck(f.cmd, cmd))[0])
@@ -68,7 +73,15 @@ exports.featCheck = (func, cmd) => {
 }
 
 exports.getParams = (func, cmd) => {
-  return cmd.split(" ").slice(func.split(" ").length).join(" ");
+    return cmd.split(" ").slice(func.split(" ").length).join(" ");
+}
+
+exports.getSuffixCommand = msg => {
+    return splitSuffixMessage(msg).command.join(" ");
+}
+
+exports.hasSuffix = msg => {
+    return splitSuffixMessage(msg).suffix.includes(suffix);
 }
 
 exports.search = (type, query) => {
@@ -126,10 +139,15 @@ exports.search = (type, query) => {
 exports.isTheMan = (id) => (id == "186723484699721728" || id == "182083904545488896");
 
 exports.log = (user, task) => {
-  console.log("User " + user + " is " + task);
+    console.log("User " + user + " is " + task);
 }
 
 const splitMessage = msg => {
-  const [prefix, ...command] = msg.content.split(" ").map(x => x.toLowerCase());
-  return {prefix: prefix, command: command};
+    const [prefix, ...command] = msg.content.split(" ").map(x => x.toLowerCase());
+    return {prefix: prefix, command: command};
+}
+
+const splitSuffixMessage = msg => {
+  const [...command] = msg.content.split(" ").map(x => x.toLowerCase());
+  return {suffix: command.slice(-1)[0], command: command.slice(0, -1)};
 }
