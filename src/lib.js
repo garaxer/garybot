@@ -151,4 +151,20 @@ exports.search = (type, query) => {
 
 exports.isTheMan = (id) => (id == "186723484699721728" || id == "182083904545488896");
 
+<<<<<<< HEAD
 exports.log = (user, task) => console.log("User " + user + " is " + task);
+=======
+exports.log = (user, task) => {
+    console.log("User " + user + " is " + task);
+}
+
+const splitMessage = msg => {
+    const [prefix, ...command] = msg.content.split(" ").map(x => x.toLowerCase());
+    return {prefix: prefix, command: command};
+}
+
+const splitSuffixMessage = msg => {
+    const [...command] = msg.content.split(" ").map(x => x.toLowerCase());
+    return {suffix: command.slice(-1)[0], command: command.slice(0, -1)};
+}
+>>>>>>> Readded auth.json
