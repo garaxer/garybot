@@ -2,6 +2,8 @@ const http = require("axios");
 const auth = require("../auth.json");
 const lib  = require("./lib.js");
 
+const rego   = require("./regocrawl.js");
+
 exports.feats = [
 
   { cmd:  "test",
@@ -95,4 +97,13 @@ exports.feats = [
         : Promise.resolve("What's good on what you fuck.")
     }
   },
+
+  { cmd:  "is the following vehicle registered in qld",
+    log:  (query) => "crawling qld government for the rego " + query,
+    func: (query) => {
+      return (query != "")
+        ? rego.search(query)
+        : Promise.resolve("Please enter a registration number")
+    }
+  }
 ]
