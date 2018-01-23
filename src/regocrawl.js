@@ -5,11 +5,7 @@ const REGO_SELECTOR = '#vehicleSearchForm\\:plateNumber';
 const SEARCH_SELECTOR = '#vehicleSearchForm\\:confirmButton';
 const REGISTERED_SELECTOR = '#j_id_2a > dl:nth-child(2) > dd:nth-child(2)';
 
-
-//async function run(query) {
-//const run = async query => {
 exports.search = async query => {
-  //const browser = await puppeteer.launch();
   const browser = await puppeteer.launch({headless: false}); //to watch what it  does
   const page = await browser.newPage();
   await page.goto('https://www.service.transport.qld.gov.au/checkrego/application/VehicleSearch.xhtml');
@@ -24,13 +20,9 @@ exports.search = async query => {
     let element = document.querySelector(sel);
     return element? element.innerHTML: null;
   }, REGISTERED_SELECTOR);
-  //console.log("Vehicle is " + registered);
-  //await page.screenshot({path: 'registered.png'});
   await browser.close();
 
   return (registered)
    ? query + " is " + registered.toLowerCase()+"."
    : query + " is not registered or found.";
 }
-
-//exports.search = query =>  run(query);
