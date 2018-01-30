@@ -91,7 +91,7 @@ exports.feats = [
         : Promise.resolve("What's good on what you fuck.")
   },
 
-  { cmd:  "is the following vehicle registered in qld",
+  { cmd:  "is the following vehicle registered in qld:",
     log:  (query) => "crawling qld government for the rego " + query,
     func: (query) =>
        (query != "")
