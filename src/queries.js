@@ -27,10 +27,7 @@ const sortChan = (board) => {
     for (j in threads) {
       sorted.push({
         no      : threads[j].no,
-        replies : threads[j].replies,
-        thumb   : threads[j].tim + "s.jpg",
-        text    : threads[j].com,
-        subject : threads[j].sub
+        replies : threads[j].replies
       });
     }
   }
@@ -91,20 +88,8 @@ module.exports = {
       http.get(chan(query))
         .then(response => response.data)
         .then(boards => sortChan(boards)[0])
-        .then(thread => ({
-          embed: {
-            color: 3066993,
-            author: {
-              name: query,
-              icon_url: "https://i.imgur.com/LtxYlXL.png"
-            },
-            title: thread.subject,
-            url: "http://boards.4chan.org" + query + "thread/" + thread.no,
-            description: thread.text,
-            thumbnail: {url: "https://i.4cdn.org" + query + thread.thumb}
-          }
-        }))
-          // "This thread has the most replies on " + query + ":\n" +
-          // "http://boards.4chan.org" + query + "thread/" + thread.no)
+        .then(thread =>
+          "This thread has the most replies on " + query + ":\n" +
+          "http://boards.4chan.org" + query + "thread/" + thread.no)
         .catch(console.error)
 }
