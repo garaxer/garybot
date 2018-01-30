@@ -89,4 +89,15 @@ exports.feats = [
         ? queries.chan(query)
         : Promise.resolve("What's good on what you fuck.")
   },
+<<<<<<< HEAD
+=======
+
+  { cmd:  "is the following vehicle registered in qld:",
+    log:  (query) => "crawling qld government for the rego " + query,
+    func: (query) =>
+       (query != "")
+        ? crawls.findrego(query)
+        : Promise.resolve("Please enter a registration number")
+  }
+>>>>>>> made the request headless
 ]
