@@ -2,6 +2,8 @@ const Discord = require("discord.js");
 const auth    = require("../auth.json");
 const lib     = require("./lib.js");
 
+const sendMsg = require("./htmlserver.js");
+
 const bot     = new Discord.Client();
 
 bot.on("ready", () => {
@@ -9,6 +11,7 @@ bot.on("ready", () => {
   console.log("Sensors online.");
   console.log("Weapons online.");
   console.log("All systems nominal.");
+  sendMsg.createhtmlSever(bot);
 });
 
 bot.on("message", message => {
