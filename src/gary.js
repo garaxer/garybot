@@ -78,7 +78,7 @@ exports.feats = [
     log:  (query) => "summarising " + query,
     func: (query) =>
       (query != "")
-        ? queries.frinkiac(query)
+        ? queries.tldr(query)
         : Promise.resolve("TL;DR what you fuck")
   },
 
@@ -88,14 +88,5 @@ exports.feats = [
       (query != "")
         ? queries.chan(query)
         : Promise.resolve("What's good on what you fuck.")
-  },
-
-  { cmd:  "is the following vehicle registered in qld:",
-    log:  (query) => "crawling qld government for the rego " + query,
-    func: (query) =>
-       (query != "")
-        ? crawls.findrego(query)
-        : Promise.resolve("Please enter a registration number")
   }
-
 ]
