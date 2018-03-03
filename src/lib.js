@@ -4,28 +4,26 @@ const prefix = "gary,";
 const suffix = "gary.";
 
 const splitMessage = {
-  p: msg => {
-    const [gary, ...command] = msg.content.split(" ").map(x => x.toLowerCase());
+  p: content => {
+    const [gary, ...command] = content.split(" ").map(x => x.toLowerCase());
     return {
       gary: gary,
       command: command
     };
   },
 
-  s: msg => {
-    const message = msg.content.split(" ").map(x => x.toLowerCase());
-    const command = message.slice(0, -1);
-    const gary = message.slice(-1)[0];
+  s: content => {
+    const message = content.split(" ").map(x => x.toLowerCase());
     return {
-      gary: gary,
-      command: command
+      gary: message.slice(-1)[0],
+      command: message.slice(0, -1)
     };
   }
 }
 
-const hasPrefix = msg => splitMessage.p(msg).gary == prefix;
+const hasPrefix = content => splitMessage.p(content).gary == prefix;
 
-const hasSuffix = msg => splitMessage.s(msg).gary == suffix;
+const hasSuffix = content => splitMessage.s(content).gary == suffix;
 
 const stripPunc = cmd => {
   const puncs = ['.', '?', '!', ','];
@@ -35,14 +33,14 @@ const stripPunc = cmd => {
     cmd;
 }
 
-exports.isCommand = msg => (hasPrefix(msg) || hasSuffix(msg))
+exports.isCommand = content => (hasPrefix(content) || hasSuffix(content))
 
-exports.getCommand = msg => {
-  if (hasPrefix(msg)) {
-    const cmd = splitMessage.p(msg).command.join(" ");
+exports.getCommand = content => {
+  if (hasPrefix(content)) {
+    const cmd = splitMessage.p(content).command.join(" ");
     return stripPunc(cmd);
-  } else if (hasSuffix(msg)) {
-    const cmd = splitMessage.s(msg).command.join(" ");
+  } else if (hasSuffix(content)) {
+    const cmd = splitMessage.s(content).command.join(" ");
     return stripPunc(cmd);
   }
 }

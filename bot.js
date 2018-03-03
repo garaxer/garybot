@@ -9,11 +9,12 @@ bot.on("ready", () => {
 });
 
 bot.on("message", message => {
-  if (lib.isCommand(message)) {
+  const content = message.content;
 
+  if (lib.isCommand(content)) {
     const ch = message.channel;
     const usr = message.author.username;
-    const cmd = lib.getCommand(message)
+    const cmd = lib.getCommand(content)
 
     lib.featSearch(cmd)
       .then(feat => {
