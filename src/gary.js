@@ -1,17 +1,19 @@
 const http = require("axios");
 const auth = require("../auth.json");
-const lib  = require("./lib.js");
-const queries  = require("./queries.js");
+const lib = require("./lib.js");
+const queries = require("./queries.js");
 
 exports.feats = [
 
-  { cmd:  "test",
-    log:  () => "testing GaryBot.",
+  {
+    cmd: "test",
+    log: () => "testing GaryBot.",
     func: () => Promise.resolve("Successful.")
   },
 
-  { cmd: "what's the time",
-    log:  () => "asking for the time.",
+  {
+    cmd: "what's the time",
+    log: () => "asking for the time.",
     func: () => {
       const today = new Date();
       const h = today.getHours();
@@ -22,71 +24,83 @@ exports.feats = [
     }
   },
 
-  { cmd:  "thanks",
-    log:  () => "is thanking the GaryBot.",
+  {
+    cmd: "thanks",
+    log: () => "is thanking the GaryBot.",
     func: () => Promise.resolve("No probs, buddy.")
   },
 
-  { cmd:  "load up celery man",
-    log:  () => "asking for a nude Tayne.",
-    func: () => Promise.resolve({ file: "https://i.imgur.com/cqJ3cge.gif" })
+  {
+    cmd: "load up celery man",
+    log: () => "asking for a nude Tayne.",
+    func: () => Promise.resolve({
+      file: "https://i.imgur.com/cqJ3cge.gif"
+    })
   },
 
-  { cmd:  "who's the man",
-    log:  () => "asking who the man is.",
+  {
+    cmd: "who's the man",
+    log: () => "asking who the man is.",
     func: (p, user) => Promise.resolve((lib.isTheMan(user)) ? "You da man!" : "You are not the man.")
   },
 
-  { cmd:  "tell me a joke",
-    log:  () => "asking for a tasteless joke.",
+  {
+    cmd: "tell me a joke",
+    log: () => "asking for a tasteless joke.",
     func: () =>
       http.get("http://api.yomomma.info")
-        .then(response => response.data.joke)
-        .catch(console.error)
+      .then(response => response.data.joke)
+      .catch(console.error)
   },
 
-  { cmd:  "show me a pup",
-    log:  () => "asking for a pup.",
+  {
+    cmd: "show me a pup",
+    log: () => "asking for a pup.",
     func: () =>
       http.get("https://random.dog/woof.json")
-        .then(response => response.data.url)
-        .catch(console.error)
+      .then(response => response.data.url)
+      .catch(console.error)
   },
 
-  { cmd:  "where are you",
-    log:  () => "asking for GaryBot's location.",
+  {
+    cmd: "where are you",
+    log: () => "asking for GaryBot's location.",
     func: () => queries.randomPlace()
   },
 
-  { cmd:  "show me some",
-    log:  (query) => "searching for some " + query,
+  {
+    cmd: "show me some",
+    log: (query) => "searching for some " + query,
     func: (query) =>
-      (query != "")
-        ? queries.google(query)
-        : Promise.resolve("Show me some what you fuck.")
+      (query != "") ?
+      queries.google(query) :
+      Promise.resolve("Show me some what you fuck.")
   },
 
-  { cmd:  "simpsons me",
-    log:  (query) => "searching for a Simpsons reference - " + query,
+  {
+    cmd: "simpsons me",
+    log: (query) => "searching for a Simpsons reference - " + query,
     func: (query) =>
-      (query != "")
-        ? queries.frinkiac(query)
-        : Promise.resolve("Simpsons me what you fuck.")
+      (query != "") ?
+      queries.frinkiac(query) :
+      Promise.resolve("Simpsons me what you fuck.")
   },
 
-  { cmd:  "tl;dr",
-    log:  (query) => "summarising " + query,
+  {
+    cmd: "tl;dr",
+    log: (query) => "summarising " + query,
     func: (query) =>
-      (query != "")
-        ? queries.tldr(query)
-        : Promise.resolve("TL;DR what you fuck")
+      (query != "") ?
+      queries.tldr(query) :
+      Promise.resolve("TL;DR what you fuck")
   },
 
-  { cmd:  "what's good on",
-    log:  (query) => "looking for popular threads on " + query,
+  {
+    cmd: "what's good on",
+    log: (query) => "looking for popular threads on " + query,
     func: (query) =>
-      (query != "")
-        ? queries.chan(query)
-        : Promise.resolve("What's good on what you fuck.")
+      (query != "") ?
+      queries.chan(query) :
+      Promise.resolve("What's good on what you fuck.")
   }
 ]

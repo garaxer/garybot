@@ -1,8 +1,8 @@
 const Discord = require("discord.js");
-const auth    = require("../auth.json");
-const lib     = require("./lib.js");
+const auth = require("../auth.json");
+const lib = require("./lib.js");
 
-const bot     = new Discord.Client();
+const bot = new Discord.Client();
 
 bot.on("ready", () => {
   console.log("Reactor online.");
@@ -14,8 +14,8 @@ bot.on("ready", () => {
 bot.on("message", message => {
   if (lib.isCommand(message)) {
 
-    const ch      = message.channel;
-    const user    = message.author.username;
+    const ch = message.channel;
+    const user = message.author.username;
     const command = lib.getCommand(message)
 
     lib.featSearch(command)

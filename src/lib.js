@@ -1,5 +1,5 @@
-const auth   = require("../auth.json");
-const gary   = require("./gary.js").feats;
+const auth = require("../auth.json");
+const gary = require("./gary.js").feats;
 
 const prefix = "gary,";
 const suffix = "gary.";
@@ -7,14 +7,20 @@ const suffix = "gary.";
 const splitMessage = {
   p: msg => {
     const [gary, ...command] = msg.content.split(" ").map(x => x.toLowerCase());
-    return {gary: gary, command: command};
+    return {
+      gary: gary,
+      command: command
+    };
   },
 
   s: msg => {
     const message = msg.content.split(" ").map(x => x.toLowerCase());
-    const command = message.slice(0,-1);
-    const gary  = message.slice(-1)[0];
-    return {gary: gary, command: command};
+    const command = message.slice(0, -1);
+    const gary = message.slice(-1)[0];
+    return {
+      gary: gary,
+      command: command
+    };
   }
 }
 
@@ -25,9 +31,9 @@ const hasSuffix = msg => splitMessage.s(msg).gary == suffix;
 const stripPunc = cmd => {
   const puncs = ['.', '?', '!', ','];
   const last = cmd.slice(-1);
-  return (puncs.includes(last))
-    ? cmd.slice(0, -1)
-    : cmd;
+  return (puncs.includes(last)) ?
+    cmd.slice(0, -1) :
+    cmd;
 }
 
 exports.isCommand = msg => (hasPrefix(msg) || hasSuffix(msg))
@@ -42,7 +48,7 @@ exports.getCommand = msg => {
   }
 }
 
-exports.featSearch = cmd => Promise.resolve(gary.filter( f => this.featCheck(f.cmd, cmd))[0])
+exports.featSearch = cmd => Promise.resolve(gary.filter(f => this.featCheck(f.cmd, cmd))[0])
 
 exports.featCheck = (func, cmd) => cmd.split(" ").slice(0, func.split(" ").length).join(" ") == func;
 

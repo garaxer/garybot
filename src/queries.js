@@ -1,11 +1,11 @@
-const http   = require("axios");
+const http = require("axios");
 const coords = require("random-coordinates");
 const auth = require("../auth.json");
 
 const google =
   "https://www.googleapis.com/customsearch/v1" +
-  "?key="        + auth.google   +
-  "&cx="         + auth.searchID +
+  "?key=" + auth.google +
+  "&cx=" + auth.searchID +
   "&searchType=image&q=";
 
 const frinkiac =
@@ -26,15 +26,15 @@ const sortChan = (board) => {
     const threads = board[i].threads
     for (j in threads) {
       sorted.push({
-        no      : threads[j].no,
-        replies : threads[j].replies,
-        thumb   : threads[j].tim + "s.jpg",
-        text    : threads[j].com,
-        subject : threads[j].sub
+        no: threads[j].no,
+        replies: threads[j].replies,
+        thumb: threads[j].tim + "s.jpg",
+        text: threads[j].com,
+        subject: threads[j].sub
       });
     }
   }
-  sorted.sort((a,b) => {
+  sorted.sort((a, b) => {
     let comparison = 0;
     if (a.replies > b.replies) {
       comparison = -1;
@@ -54,57 +54,61 @@ const google_map = (coords) =>
 
 module.exports = {
 
-    google: query =>
-      http.get(google + query)
-      .then(response => response.data.items[0].link)
-      .catch(console.error),
+  google: query =>
+    http.get(google + query)
+    .then(response => response.data.items[0].link)
+    .catch(console.error),
 
-    frinkiac: query =>
-      http.get(frinkiac + query)
-        .then(response => response.data[0])
-        .then(data => "https://frinkiac.com/meme/" + data.Episode + "/" + data.Timestamp)
-        .catch(console.error),
+  frinkiac: query =>
+    http.get(frinkiac + query)
+    .then(response => response.data[0])
+    .then(data => "https://frinkiac.com/meme/" + data.Episode + "/" + data.Timestamp)
+    .catch(console.error),
 
-    tldr: query =>
-      http.get(tldr + query)
-        .then(response => (response.data.sm_api_content))
-        .then(summary => summary.replace(/\[BREAK\]/g, "\n\n"))
-        .catch(console.error),
+  tldr: query =>
+    http.get(tldr + query)
+    .then(response => (response.data.sm_api_content))
+    .then(summary => summary.replace(/\[BREAK\]/g, "\n\n"))
+    .catch(console.error),
 
-    randomPlace: () =>
-      http.get(google_map(coords({ fixed: 7 }).split(" ").join("")))
-        .then(response => {
-          if (response.data.status == "OK") {
-            const place = response.data.results[0];
-            return "I think I'm in "
-            + place.formatted_address + "\n"
-            + "https://www.google.com.au/maps/place/"
-            + place.geometry.location.lat + ","
-            + place.geometry.location.lng
-          } else {
-            return module.exports.randomPlace();
-          }
-        })
-        .catch(console.error),
+  randomPlace: () =>
+    http.get(google_map(coords({
+      fixed: 7
+    }).split(" ").join("")))
+    .then(response => {
+      if (response.data.status == "OK") {
+        const place = response.data.results[0];
+        return "I think I'm in " +
+          place.formatted_address + "\n" +
+          "https://www.google.com.au/maps/place/" +
+          place.geometry.location.lat + "," +
+          place.geometry.location.lng
+      } else {
+        return module.exports.randomPlace();
+      }
+    })
+    .catch(console.error),
 
-    chan: query =>
-      http.get(chan(query))
-        .then(response => response.data)
-        .then(boards => sortChan(boards)[0])
-        .then(thread => ({
-          embed: {
-            color: 3066993,
-            author: {
-              name: query,
-              icon_url: "https://i.imgur.com/LtxYlXL.png"
-            },
-            title: thread.subject,
-            url: "http://boards.4chan.org" + query + "thread/" + thread.no,
-            description: thread.text,
-            thumbnail: {url: "https://i.4cdn.org" + query + thread.thumb}
-          }
-        }))
-          // "This thread has the most replies on " + query + ":\n" +
-          // "http://boards.4chan.org" + query + "thread/" + thread.no)
-        .catch(console.error)
+  chan: query =>
+    http.get(chan(query))
+    .then(response => response.data)
+    .then(boards => sortChan(boards)[0])
+    .then(thread => ({
+      embed: {
+        color: 3066993,
+        author: {
+          name: query,
+          icon_url: "https://i.imgur.com/LtxYlXL.png"
+        },
+        title: thread.subject,
+        url: "http://boards.4chan.org" + query + "thread/" + thread.no,
+        description: thread.text,
+        thumbnail: {
+          url: "https://i.4cdn.org" + query + thread.thumb
+        }
+      }
+    }))
+    // "This thread has the most replies on " + query + ":\n" +
+    // "http://boards.4chan.org" + query + "thread/" + thread.no)
+    .catch(console.error)
 }
