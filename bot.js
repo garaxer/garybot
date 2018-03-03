@@ -23,7 +23,7 @@ bot.on("message", message => {
       })
       .then(msg => ch.send(msg))
       .catch(error => {
-        console.error(usr + " entered an invalid command - " + command);
+        console.error(usr + " entered an invalid command - " + cmd);
         ch.send("What the fuck is a " + "\"" + cmd + "\"" + " lmao.");
       })
   }
