@@ -1,5 +1,4 @@
-const auth = require("../auth.json");
-const gary = require("./gary.js").feats;
+const feats = require("./feats.js");
 
 const prefix = "gary,";
 const suffix = "gary.";
@@ -48,7 +47,7 @@ exports.getCommand = msg => {
   }
 }
 
-exports.featSearch = cmd => Promise.resolve(gary.filter(f => this.featCheck(f.cmd, cmd))[0])
+exports.featSearch = cmd => Promise.resolve(feats.filter(f => this.featCheck(f.cmd, cmd))[0])
 
 exports.featCheck = (func, cmd) => cmd.split(" ").slice(0, func.split(" ").length).join(" ") == func;
 

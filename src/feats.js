@@ -1,9 +1,8 @@
 const http = require("axios");
-const auth = require("../auth.json");
 const lib = require("./lib.js");
 const queries = require("./queries.js");
 
-exports.feats = [
+module.exports = [
 
   {
     cmd: "test",
