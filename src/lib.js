@@ -45,11 +45,13 @@ exports.getCommand = content => {
   }
 }
 
-exports.featSearch = cmd => Promise.resolve(feats.filter(f => this.featCheck(f.cmd, cmd))[0])
+exports.featSearch = cmd => Promise.resolve(feats.filter(f => this.featIsCmd(f.cmd, cmd))[0])
 
-exports.featCheck = (func, cmd) => cmd.split(" ").slice(0, func.split(" ").length).join(" ") == func;
+exports.featIsCmd = (func, cmd) => this.intersectRTL(func, cmd) == func;
 
-exports.getParams = (func, cmd) => cmd.split(" ").slice(func.split(" ").length).join(" ");
+exports.diffRTL = (n, s) => s.split(" ").slice(n.split(" ").length).join(" ");
+
+exports.intersectRTL = (n, s) => s.split(" ").slice(0, n.split(" ").length).join(" ");
 
 exports.isTheMan = (id) => (id == "186723484699721728" || id == "182083904545488896");
 

@@ -18,7 +18,7 @@ bot.on("message", message => {
 
     lib.featSearch(cmd)
       .then(feat => {
-        const params = lib.getParams(feat.cmd, cmd);
+        const params = lib.diffRTL(feat.cmd, cmd);
         lib.log(usr, feat.log(params));
         return feat.func(params, message.author.id);
       })
