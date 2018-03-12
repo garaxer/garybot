@@ -31,4 +31,32 @@ bot.on("message", message => {
 
 });
 
+bot.on("messageUpdate", (mO, mN) => {
+  if (!mO.author.bot) {
+    const ch = mO.channel;
+    const author = mO.author;
+    const embed = {
+      embed: {
+        author: {
+          name: author.username + " just made an edit!",
+          icon_url: author.avatarURL
+        },
+        fields: [{
+            name: "Old Message",
+            value: mO.content
+          },
+          {
+            name: "New Message",
+            value: mN.content
+          }
+        ]
+      }
+    }
+
+    ch.send(embed)
+      .catch(console.error);
+    console.log(author.username + " edited a message. (" + mO.content + ") is now (" + mN.content + ")")
+  }
+})
+
 bot.login(auth.token);
