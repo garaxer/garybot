@@ -108,7 +108,5 @@ module.exports = {
         }
       }
     }))
-    // "This thread has the most replies on " + query + ":\n" +
-    // "http://boards.4chan.org" + query + "thread/" + thread.no)
     .catch(console.error)
 }

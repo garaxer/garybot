@@ -1,4 +1,9 @@
-const feats = require("./feats.js");
+const basic_feats = require("./feats/basic-feats.js");
+const query_feats = require("./feats/query-feats.js");
+const feats = [].concat(
+  basic_feats,
+  query_feats
+)
 
 const prefix = "gary,";
 const suffix = "gary.";
@@ -47,7 +52,7 @@ exports.getCommand = content => {
 
 exports.featSearch = cmd => Promise.resolve(feats.filter(f => this.featIsCmd(f.cmd, cmd))[0])
 
-exports.featIsCmd = (func, cmd) => this.intersectRTL(func, cmd) == func;
+exports.featIsCmd = (feat, cmd) => this.intersectRTL(feat, cmd) == feat;
 
 exports.diffRTL = (n, s) => s.split(" ").slice(n.split(" ").length).join(" ");
 
