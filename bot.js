@@ -32,7 +32,7 @@ bot.on("message", message => {
 });
 
 bot.on("messageUpdate", (mO, mN) => {
-  if (!mO.author.bot) {
+  if (!mO.author.bot && mN.embeds.length == 0) {
     const ch = mO.channel;
     const author = mO.author;
     const embed = {
