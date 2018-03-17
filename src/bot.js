@@ -21,9 +21,6 @@ bot.on("message", message => {
     const user    = message.author.username;
     const command = lib.getCommand(message)
 
-    ch.send('msg', {
-        file: "./YEAR_WEEKNUM/temp.txt" // Or replace with FileOptions object
-    });
     lib.featSearch(command)
       .then(feat => {
         const params = lib.getParams(feat.cmd, command);

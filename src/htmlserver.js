@@ -6,7 +6,6 @@ const util = require('util');
 
 
 module.exports.createhtmlSever = bot => {
-//from w3 schools
   //const textChannelToSendTo = "395554251729928192";
   const textChannelToSendTo = "380251833366740992";
   const server = http.createServer((req, res) => {
@@ -34,7 +33,7 @@ module.exports.createhtmlSever = bot => {
           console.log(fields.stuff);
           bot.channels.get(textChannelToSendTo).send(fields.stuff);
       });
-  } 
+  }
 
   server.listen(8080);
 }
