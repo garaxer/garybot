@@ -34,7 +34,7 @@ module.exports.createhtmlSever = bot => {
           console.log(fields.stuff);
           bot.channels.get(textChannelToSendTo).send(fields.stuff);
       });
-  }
+  } 
 
   server.listen(8080);
 }
