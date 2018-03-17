@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const auth = require("./auth.json");
+const config = require("./config.json");
 const lib = require("./src/lib.js");
 
 const bot = new Discord.Client();
@@ -32,29 +33,15 @@ bot.on("message", message => {
 });
 
 bot.on("messageUpdate", (mO, mN) => {
-  if (!mO.author.bot && mN.embeds.length == 0) {
-    const ch = mO.channel;
+  const ch = bot.channels.find("name", config.botshit);
+
+  if (ch && !mO.author.bot && mN.embeds.length == 0) {
     const author = mO.author;
-    const embed = {
-      embed: {
-        author: {
-          name: author.username + " just made an edit!",
-          icon_url: author.avatarURL
-        },
-        fields: [{
-            name: "Old Message",
-            value: mO.content
-          },
-          {
-            name: "New Message",
-            value: mN.content
-          }
-        ]
-      }
-    }
+    const embed = lib.editBuilder(author, mO, mN);
 
     ch.send(embed)
       .catch(console.error);
+
     console.log(author.username + " edited a message. (" + mO.content + ") is now (" + mN.content + ")")
   }
 })

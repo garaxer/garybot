@@ -61,3 +61,21 @@ exports.intersectRTL = (n, s) => s.split(" ").slice(0, n.split(" ").length).join
 exports.isTheMan = (id) => (id == "186723484699721728" || id == "182083904545488896");
 
 exports.log = (user, task) => console.log("User " + user + " is " + task);
+
+exports.editBuilder = (a, mO, mN) => ({
+  embed: {
+    author: {
+      name: a.username + " just made an edit!",
+      icon_url: a.avatarURL
+    },
+    fields: [{
+        name: "Old Message",
+        value: mO.content
+      },
+      {
+        name: "New Message",
+        value: mN.content
+      }
+    ]
+  }
+})
