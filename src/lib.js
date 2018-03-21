@@ -60,7 +60,7 @@ exports.intersectRTL = (n, s) => s.split(" ").slice(0, n.split(" ").length).join
 
 exports.isTheMan = (id) => (id == "186723484699721728" || id == "182083904545488896");
 
-exports.log = (user, task) => console.log("User " + user + " is " + task);
+exports.log = (ch, user, task) => console.log("[" + ch.guild.name + ", #" + ch.name + "] " + "User " + user + " is " + task);
 
 exports.editBuilder = (a, mO, mN) => ({
   embed: {

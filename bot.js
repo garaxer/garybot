@@ -16,11 +16,12 @@ bot.on("message", message => {
     const ch = message.channel;
     const usr = message.author.username;
     const cmd = lib.getCommand(content)
+    
 
     lib.featSearch(cmd)
       .then(feat => {
         const params = lib.diffRTL(feat.cmd, cmd);
-        lib.log(usr, feat.log(params));
+        lib.log(ch, usr, feat.log(params));
         return feat.func(params, message.author.id);
       })
       .then(msg => ch.send(msg))
