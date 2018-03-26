@@ -5,6 +5,8 @@ const feats = [].concat(
   query_feats
 )
 
+const config = require("../config.json");
+
 const prefix = "gary,";
 const suffix = "gary.";
 
@@ -58,7 +60,7 @@ exports.diffRTL = (n, s) => s.split(" ").slice(n.split(" ").length).join(" ");
 
 exports.intersectRTL = (n, s) => s.split(" ").slice(0, n.split(" ").length).join(" ");
 
-exports.isTheMan = (id) => (id == "186723484699721728" || id == "182083904545488896");
+exports.isTheMan = (id) => config.the_men.includes(id);
 
 exports.log = (ch, user, task) => console.log("[" + ch.guild.name + ", #" + ch.name + "] " + "User " + user + " is " + task);
 
