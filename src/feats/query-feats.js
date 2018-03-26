@@ -35,5 +35,14 @@ module.exports = [
       (query != "") ?
       queries.chan(query) :
       Promise.resolve("What's good on what you fuck.")
+  },
+
+  {
+    cmd: "roll a",
+    log: (query) => "trying to roll a " + query,
+    func: (query) => 
+      (query != "") ?
+      queries.roll(query) :
+      Promise.resolve("Roll a what you fuck.")
   }
 ]

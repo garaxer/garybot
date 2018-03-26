@@ -1,6 +1,7 @@
 const http = require("axios");
 const coords = require("random-coordinates");
 const auth = require("../auth.json");
+const dice = require("d20");
 
 const google =
   "https://www.googleapis.com/customsearch/v1" +
@@ -108,5 +109,10 @@ module.exports = {
         }
       }
     }))
-    .catch(console.error)
+    .catch(console.error),
+
+  roll: query => {
+    const result = dice.roll(query);
+    return (result != 0) ? result : "A " + query + " isn't a dice."
+  }
 }
