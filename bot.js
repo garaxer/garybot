@@ -16,7 +16,7 @@ bot.on("message", message => {
     const ch = message.channel;
     const usr = message.author.username;
     const cmd = lib.getCommand(content)
-    
+
 
     lib.featSearch(cmd)
       .then(feat => {
@@ -34,7 +34,7 @@ bot.on("message", message => {
 });
 
 bot.on("messageUpdate", (mO, mN) => {
-  const ch = bot.channels.find("name", config.botshit);
+  const ch = mO.guild.channels.find("name", config.botshit);
 
   if (ch && !mO.author.bot && mN.embeds.length == 0) {
     const author = mO.author;
