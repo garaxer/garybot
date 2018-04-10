@@ -34,7 +34,7 @@ bot.on("message", message => {
 });
 
 bot.on("messageUpdate", (mO, mN) => {
-  const ch = mO.guild.channels.find("name", config.botshit);
+  const ch = mO.guild.channels.find("name", config.editsChannel);
 
   if (ch && !mO.author.bot && mN.embeds.length == 0) {
     const author = mO.author;

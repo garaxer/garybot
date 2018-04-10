@@ -67,7 +67,7 @@ exports.log = (ch, user, task) => console.log("[" + ch.guild.name + ", #" + ch.n
 exports.editBuilder = (a, mO, mN) => ({
   embed: {
     author: {
-      name: a.username + " just made an edit!",
+      name: a.username + " just made an edit in #" + mO.channel.name,
       icon_url: a.avatarURL
     },
     fields: [{
